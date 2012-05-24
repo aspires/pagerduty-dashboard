@@ -1,4 +1,6 @@
 PagerdutyInterview::Application.routes.draw do
+  resources :dashboard, :application
+  root to: "dashboard#show"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

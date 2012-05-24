@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PagerdutyInterview</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <meta http-equiv="refresh" content="180" />
+
+</head>
+<body>
+  <div id= "wrapper">
+
+    <H1>Acknowleged, but Unresolved</h1>
+    <p id ="tagline" >Refresh rate: 3 minutes</p>
+
+      <%@unresolved.each do |issue|%>
+        <table>
+          
+          <tr><td>Last Change:</td> <td><%= ((Time.now - issue["last_status_change_on"].to_datetime)/60).round %> Minutes Ago </td></tr>
+           <tr><td> Assigned to: </td> <td><%= issue["assigned_to_user"].nil? ? "Not Assigned" : issue["assigned_to_user"]["name"] %></td></tr>
+           <tr><td> Summary:</td> <td> <%= issue["trigger_summary_data"] %></td></tr>
+           <tr><td> Details URL: </td> <td> <%= link_to "More Information", issue["trigger_details_html_url"] %></td></tr>
+           <tr><td> Originated: </td> <td> <%= ((Time.now - issue["created_on"].to_datetime)/60).round %> Minutes Ago</td></tr>
+           <tr><td> Which Service:</td> <td><%= issue["service"]["name"] %></td></tr>
+           <tr><td> Last Change By: </td> <td><%= issue["last_status_change_by"].nil? ? "No Work Done" : issue["last_status_change_by"]["name"] %></td></tr>
+           <tr><td> Direct Link: </td> <td><%= link_to "Go To Issue", issue["html_url"] %></td></tr>
+            
+        </table>
+        <hr>
+      <% end %>
+
+  </div>
+</body>
+</html>
+
